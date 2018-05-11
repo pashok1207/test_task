@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My site</title>
+  <style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans');
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<script>
+    $(document).ready(function() {
+      var submitMessageIn = $('.coments');
+
+      $('#message').on('keyup',function(){
+      var $this = $(this),
+          val = $this.val();
+      
+      if(val.length >= 1){
+        $('#submit-message').show(100);
+      }
+      else {
+        $('#submit-message').hide(100);
+      }
+      return false;
+    });
+
+      $('#submit-message').click(function() {
+        var val = $("#message").val();
+        $('#message').val('');
+        $('#message').html();
+        submitMessageIn.prepend('<div class="in-in_coments">' + '<p>' + val + '</p>' + '</div>');
+        return false;
+      });
+
+    $('.switchs a').click(function(){
+      $('.switchs a').removeClass('active');
+      $(this).addClass('active');
+
+});
+
+      $('.switchs a').click(function(){
+        clearInterval(interval);
+        var integer = $(this).attr('rel');  
+        $('.in-carousel').animate({left:-100*(parseInt(integer)-1)})
+        $('.switchs a').each(function(){
+            $('.switchs a .active').removeClass('active');
+            if($(this).hasClass('switchs'+integer)){
+                $(this).addClass('active')}
+        });
+    });
+        Next();
+        interval = setInterval ( function(){Next();}, 3000 );
+    });
+    
+    function Next(){
+        var _next = false;
+        $('.switchs a').each(function(){
+            if(_next){
+                $(this).addClass('active');
+                _next = false;
+            }
+            else if($(this).hasClass('active')){
+                _next = true;
+                $(this).removeClass('active')
+            }
+            
+        });  
+        if(_next)
+            $(".switchs a:eq(0)").addClass("active");
+        
+       var activeIndex = parseInt($(".active").attr("rel"));
+       $('.in-carousel').animate({left:-100*(parseInt(activeIndex)-1)});      
+    }
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<header>
+  <div class="container-fluid">
+    <div class="row">
+      <div id="logo">
+        <p class="text-center vcenter">Films library</p>
+      </div>
+      <div class="Rectangle">
+        <p id="button">Add new film</p>
+      </div>
+    </div>  
+  </div>
+</header>
+<div class="container-fluid main">
+  <div class="container form">
+    <form>
+      <ul>
+        <p>TITLE</p>
+        <li><input type="text"></li>
+        </br>
+        <p>YEAR</p>
+        <li><input type="text"></li>
+        </br>
+        <p>country</p>
+        <li><input type="text"></li>
+        </br>
+        <p>genre</p>
+        <li><input type="text"></li>
+        </br>
+        <p>poster (link)</p>
+        <li><input type="text"></li>
+        </br>
+        <p>description</p>
+        <li><input type="text" id="description"></li>
+        <p class="button">
+            <input type="reset" value="Cancel">
+            <input type="submit" value="Add" id="add">
+        </p>
+      </ul>
+    </form>
+  </div>
+  <div class="film container">
+    <div class="container movie">
+      <div class="col-md-4 photo">
+        <img src="images/martian.png" alt="">   
+      </div>
+      <div class="col-md-8 text">
+        <h1>Martian</h1>
+        <p>Mars mission Ares-2 in the process was forced to urgently leave the planet because of the impending sandstorm. Engineer and Biolog mark Watney suffered an injury suit during a sand storm. The mission,considering him dead...</p>  
+        <div class="col-md-3">
+          <p>COUNTRY</p>
+          <p>YEAR</p>
+          <p>GENRE</p>
+          <p>ACTORS</p>
+        </div>
+        <div class="col-md-9">
+          <p>USA</p>
+          <p>2016</p>
+          <p>Fantasy</p>
+          <p>Aksel Hennie, Chiwetel Ejiofor, Jeff Daniels, Jessica Chastain, Kate Mara, Kristen Wiig, Matt Damon, Michael Peña, Sean Bean, Sebastian Stan</p>
+        </div>
+        <p class="button">
+          <input type="submit" value="Delete" id="delete">
+          <input type="submit" value="Add" id="add">
+        </p>
+      </div>
+    </div>
+    <div class="container comments">
+      <p class="comment_p">Comments: 3</p>
+      <input id="button_2" type="checkbox">
+      <div class="coments">
+        <div class="in-in_coments">
+          <p>Test comment 1</p>
+        </div>
+        <div class="in-in_coments">
+          <p>Test comment 2</p>
+        </div>
+      </div>
+      <div class="sent">
+        <form action="#">
+          <input required type="text" id="message" placeholder="Add your comment" maxlength="200">
+          <input id="submit-message" value="Add" type="submit">
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+</body>
